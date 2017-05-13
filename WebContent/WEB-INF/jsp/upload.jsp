@@ -8,15 +8,15 @@ body {
 }
 div {
 	text-align: center;
-	margin: auto, auto;
+	margin: auto;
 	padding: 1em;
 }
 </style>
 </head>
 <body>${message}
-	<div style="font-family: verdana; padding: 10px; border-radius: 10px; font-size: 12px; text-align:center;">
-	<form>
-		<input type=file>
+	<div style="font-family: verdana,sans-serif; padding: 10px; border-radius: 10px; font-size: 12px; text-align:center;">
+	<form method="POST" action="upload.html" enctype="multipart/form-data">
+		<input type=file name="file">
 		<input type=submit value="Upload">
 	</form>
 	</div>

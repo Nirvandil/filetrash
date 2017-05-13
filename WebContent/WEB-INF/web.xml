@@ -16,5 +16,8 @@
         <servlet-name>filetrash</servlet-name>
         <url-pattern>*.html</url-pattern>
     </servlet-mapping>
-  
+    <context-param>
+    	<param-name>uploadPath</param-name>
+    	<param-value>/media/load/for_tests</param-value>
+</context-param>
 </web-app>
