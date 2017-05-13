@@ -12,6 +12,7 @@
 		padding: 1em;
 	}
 </style>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 	<div>
@@ -22,6 +23,7 @@
 	<div style="font-family: verdana,sans-serif; padding: 10px; border-radius: 10px; font-size: 12px; text-align:center;">
 	<form method="POST" action="upload.html" enctype="multipart/form-data">
 		<input type=file name="file">
+        <div class="g-recaptcha" data-sitekey="6LfyQCEUAAAAAArmt3rFRWEqfpe53gBZvCLkyi5D"></div>
 		<input type=submit value="Upload">
 	</form>
 	</div>
