@@ -9,10 +9,7 @@ import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,7 +25,7 @@ public class TrashMainController implements ServletContextAware
 		return new ModelAndView("upload", "message", message);
 	}
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public @ResponseBody String uploadFile(@RequestParam("file") MultipartFile file)
+	public @ResponseBody String uploadFile(@RequestParam("file") MultipartFile file, @RequestHeader String host)
 	{
 		if (!file.isEmpty()) {
 			try {
@@ -42,8 +39,9 @@ public class TrashMainController implements ServletContextAware
 				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
 				stream.write(bytes);
 				stream.close();
-				return "You successfully uploaded file " + file.getOriginalFilename() + ".\nIt" +
-                        "can be downloaded from " + rootPath + File.separator + fileName;
+				return "You successfully uploaded file " + file.getOriginalFilename() + ".\nIt " +
+                        "can be downloaded from <a href=\"http://" + host + context.getContextPath() + rootPath +
+                        File.separator + fileName + "\">this link</a>";
 			} catch (Exception e) {
 				e.printStackTrace();
 				return "You failed to upload  => " + e.toString(); 

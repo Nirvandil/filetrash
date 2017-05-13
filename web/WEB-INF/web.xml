@@ -17,6 +17,7 @@
         <url-pattern>*.html</url-pattern>
     </servlet-mapping>
     <context-param>
+        <!--You need to serve this directory by your web-server (as static)-->
     	<param-name>uploadPath</param-name>
     	<param-value>/media/load/for_tests</param-value>
 </context-param>
