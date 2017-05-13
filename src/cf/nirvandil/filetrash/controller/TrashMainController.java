@@ -21,8 +21,7 @@ public class TrashMainController implements ServletContextAware
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public ModelAndView indexController()
 	{
-		String message = "<div><br> Just put your file and get direct link to it! <br></div>";
-		return new ModelAndView("upload", "message", message);
+		return new ModelAndView("upload");
 	}
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	public ModelAndView uploadFile(@RequestParam("file") MultipartFile file, @RequestHeader String host)
