@@ -1,7 +1,10 @@
 package cf.nirvandil.filetrash.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,7 +25,7 @@ public class TrashMainController implements ServletContextAware
 		return new ModelAndView("upload", "message", message);
 	}
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public @ResponseBody String uploadFile(@RequestParam("file") MultipartFile file, @RequestHeader String host)
+	public ModelAndView uploadFile(@RequestParam("file") MultipartFile file, @RequestHeader String host)
 	{
 		if (!file.isEmpty()) {
 			try {
@@ -36,15 +39,14 @@ public class TrashMainController implements ServletContextAware
 				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
 				stream.write(bytes);
 				stream.close();
-				return "You successfully uploaded file " + file.getOriginalFilename() + ".\nIt " +
-                        "can be downloaded from <a href=\"http://" + host + context.getContextPath() + rootPath +
-                        File.separator + fileName + "\">this link</a>";
+				String url = "http://" + host + context.getContextPath() + rootPath + File.separator + fileName;
+				return new ModelAndView("result", "url", url);
 			} catch (Exception e) {
 				e.printStackTrace();
-				return "You failed to upload  => " + e.toString(); 
+				return new ModelAndView("error", "errorMessage", e.toString());
 			}
 		} else {
-			return "You failed to upload, because the file was empty.";
+			return new ModelAndView("error", "errorMessage", "Empty body.");
 		}
 	}
 	@Override
