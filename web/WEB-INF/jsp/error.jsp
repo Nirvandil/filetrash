@@ -13,9 +13,7 @@
 <body>
 <div>
     <p>
-        <span>
-            Sorry to inform you, but an error occurred an we unable to process you request. An error was ${errorMessage}
-        </span>
+        Sorry to inform you, but an error occurred and we unable to process you request. An error was:<br> ${errorMessage}
     </p>
 </div>
 </body>
