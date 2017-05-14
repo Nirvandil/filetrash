@@ -10,9 +10,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletContext;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 @Controller
 public class TrashMainController implements ServletContextAware
@@ -24,9 +27,12 @@ public class TrashMainController implements ServletContextAware
 		return new ModelAndView("upload", "dataSiteKey", context.getInitParameter("dataSiteKey"));
 	}
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public ModelAndView uploadFile(@RequestParam("file") MultipartFile file, @RequestHeader String host)
+	public ModelAndView uploadFile(
+	        @RequestParam("file") MultipartFile file,
+            @RequestParam("g-recaptcha-response") String gRecaptchaResponse,
+            @RequestHeader String host)
     {
-        if (validateCaptcha() && (!file.isEmpty()))
+        if (validateCaptcha(gRecaptchaResponse) && (!file.isEmpty()))
         {
             try
                 {
@@ -57,8 +63,37 @@ public class TrashMainController implements ServletContextAware
 	public void setServletContext(ServletContext servletContext) {
 		this.context = servletContext;
 	}
-	private boolean validateCaptcha()
+	private boolean validateCaptcha(String gRecaptchaResponse)
 	{
-		return true;
+	    String url = context.getInitParameter("checkCaptchaUrl");
+	    String charset = "UTF-8";
+	    String secret = context.getInitParameter("siteKeySecret");
+	    boolean answer = false;
+        try
+        {
+            String query = String.format("secret=%s&response=%s",
+                    URLEncoder.encode(secret, charset),
+                    URLEncoder.encode(gRecaptchaResponse, charset));
+            URLConnection connection = new URL(url).openConnection();
+            connection.setDoOutput(true); // POST
+            connection.setRequestProperty("Accept-Charset", charset);
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
+            try (OutputStream output = connection.getOutputStream()) {
+                output.write(query.getBytes(charset));
+            }
+            //TODO: Handle it as JSON, not simple string
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            while (reader.ready())
+            {
+                String line = reader.readLine();
+                if (line.contains("success") && line.contains("true"))
+                    answer = true;
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return answer;
 	}
 }

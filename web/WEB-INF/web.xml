@@ -31,4 +31,8 @@
         <param-name>siteKeySecret</param-name>
         <param-value>6LfyQCEUAAAAAD4ANRSyYASAyoagYoexqvPUDcSK</param-value>
     </context-param>
+    <context-param>
+        <param-name>checkCaptchaUrl</param-name>
+        <param-value>https://www.google.com/recaptcha/api/siteverify</param-value>
+    </context-param>
 </web-app>
