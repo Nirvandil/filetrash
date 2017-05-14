@@ -23,7 +23,7 @@
 	<div style="font-family: verdana,sans-serif; padding: 10px; border-radius: 10px; font-size: 12px; text-align:center;">
 	<form method="POST" action="upload.html" enctype="multipart/form-data">
 		<input type=file name="file">
-        <div class="g-recaptcha" data-sitekey="6LfyQCEUAAAAAArmt3rFRWEqfpe53gBZvCLkyi5D"></div>
+        <div class="g-recaptcha" data-sitekey="${dataSiteKey}"></div>
 		<input type=submit value="Upload">
 	</form>
 	</div>

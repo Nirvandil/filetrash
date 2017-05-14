@@ -21,35 +21,44 @@ public class TrashMainController implements ServletContextAware
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public ModelAndView indexController()
 	{
-		return new ModelAndView("upload");
+		return new ModelAndView("upload", "dataSiteKey", context.getInitParameter("dataSiteKey"));
 	}
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	public ModelAndView uploadFile(@RequestParam("file") MultipartFile file, @RequestHeader String host)
-	{
-		if (!file.isEmpty()) {
-			try {
-				byte[] bytes = file.getBytes();
-                String fileName = file.getOriginalFilename();
-                // Get directory to store file
-				String rootPath = context.getInitParameter("uploadPath");
-				File dir = new File(rootPath);
-				// Create the file on server
-				File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName);
-				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-				stream.write(bytes);
-				stream.close();
-				String url = "http://" + host + context.getContextPath() + rootPath + File.separator + fileName;
-				return new ModelAndView("result", "url", url);
-			} catch (Exception e) {
-				e.printStackTrace();
-				return new ModelAndView("error", "errorMessage", e.toString());
-			}
-		} else {
-			return new ModelAndView("error", "errorMessage", "Empty body.");
-		}
-	}
+    {
+        if (validateCaptcha() && (!file.isEmpty()))
+        {
+            try
+                {
+                    byte[] bytes = file.getBytes();
+                    String fileName = file.getOriginalFilename();
+                    // Get directory to store file
+                    String rootPath = context.getInitParameter("uploadPath");
+                    File dir = new File(rootPath);
+                    // Create the file on server
+                    File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName);
+                    BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+                    stream.write(bytes);
+                    stream.close();
+                    String url = "http://" + host + context.getContextPath() + rootPath + File.separator + fileName;
+                    return new ModelAndView("result", "url", url);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                    return new ModelAndView("error", "errorMessage", e.getMessage());
+                }
+            } else
+                {
+                    return new ModelAndView("error", "errorMessage", "Empty file body.");
+                }
+    }
 	@Override
 	public void setServletContext(ServletContext servletContext) {
 		this.context = servletContext;
+	}
+	private boolean validateCaptcha()
+	{
+		return true;
 	}
 }
