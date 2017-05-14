@@ -5,32 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Upload finished</title>
-    <style type="text/css">
-        body {
-            background-image: url('https://crunchify.com/bg.png');
-        }
-        div {
-            margin: auto;
-            padding-top: 5em;
-            text-align: center;
-        }
-        a {
-            text-decoration: none;
-            color: black;
-        }
-        a:visited {
-            color: black;
-        }
-        button {
-            margin-left: 1em;
-        }
-        #toIndex {
-            color: red;
-        }
-        #toIndex a:visited {
-            color: red;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
     <div>
@@ -44,6 +19,6 @@
             <a href="${pageContext.request.contextPath}/index.html">Go to main page</a>
         </p>
     </div>
-<script src="${pageContext.request.contextPath}/resources/clipboard.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/clipboard.js"></script>
 </body>
 </html>

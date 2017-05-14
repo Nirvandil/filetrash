@@ -4,16 +4,7 @@
 <html>
 <head>
 <title>Simple file exchanger</title>
-<style type="text/css">
-	body {
-		background-image: url('https://crunchify.com/bg.png');
-	}
-	div {
-		text-align: center;
-		margin: auto;
-		padding: 1em;
-	}
-</style>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>

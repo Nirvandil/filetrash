@@ -1,0 +1,27 @@
+body {
+    background-image: url("../img/bg.png");
+}
+div {
+    margin: auto;
+    text-align: center;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+a:visited {
+    color: black;
+}
+form {
+    margin: 2em 2em 2em 2em;
+}
+input {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+#toIndex {
+    color: red;
+}
+#toIndex a:visited {
+    color: red;
+}

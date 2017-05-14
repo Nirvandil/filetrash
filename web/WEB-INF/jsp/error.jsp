@@ -4,23 +4,7 @@
 <html>
 <head>
     <title>Something wrong</title>
-    <style type="text/css">
-        body {
-            background-image: url('https://crunchify.com/bg.png');
-        }
-        div, p {
-            text-align: center;
-            margin: auto;
-            padding-top: 2em;
-        }
-        a {
-            text-decoration: none;
-            color: red;
-        }
-        a:visited {
-            color: red;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
 <div>
