@@ -5,7 +5,8 @@
 <head>
 <title>Simple file exchanger</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+	<link rel="icon" href="${pageContext.request.contextPath}/resources/img/favicon.png">
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 	<div>

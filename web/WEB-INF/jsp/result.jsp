@@ -6,6 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Upload finished</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
+    <link rel="icon" href="${pageContext.request.contextPath}/resources/img/favicon.png">
 </head>
 <body>
     <div>

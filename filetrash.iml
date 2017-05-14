@@ -44,5 +44,6 @@
     <orderEntry type="library" name="Maven: org.aspectj:aspectjtools:1.8.10" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:3.2.18.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
+    <orderEntry type="library" name="api" level="application" />
   </component>
 </module>

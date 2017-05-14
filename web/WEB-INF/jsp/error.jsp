@@ -5,6 +5,7 @@
 <head>
     <title>Something wrong</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
+    <link rel="icon" href="${pageContext.request.contextPath}/resources/img/favicon.png">
 </head>
 <body>
 <div>
