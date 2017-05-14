@@ -10,11 +10,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.logging.Logger;
 
 @Controller
 public class TrashMainController implements ServletContextAware
@@ -29,7 +29,8 @@ public class TrashMainController implements ServletContextAware
 	public ModelAndView uploadFile(
 	        @RequestParam("file") MultipartFile file,
             @RequestParam("g-recaptcha-response") String gRecaptchaResponse,
-            @RequestHeader String host)
+            @RequestHeader String host,
+            HttpServletRequest request)
     {
         if (!validateCaptcha(gRecaptchaResponse))
             return new ModelAndView("error", "errorMessage", "Invalid CAPTCHA.");
@@ -40,7 +41,8 @@ public class TrashMainController implements ServletContextAware
             String uploadPath = context.getInitParameter("uploadPath");
             String fileName = file.getOriginalFilename();
             writeFile(file, uploadPath, fileName);
-            String url = "http://" + host + context.getContextPath() + uploadPath + File.separator + fileName;
+            String url = request.isSecure()? "https://":"http://" + host +
+                    context.getContextPath() + uploadPath + File.separator + fileName;
             return new ModelAndView("result", "url", url);
         }
         catch (Exception e)
