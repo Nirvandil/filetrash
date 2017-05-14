@@ -23,7 +23,7 @@ public class LoggingAop
 {
     private Logger logger = Logger.getLogger("cf.nirvandil.filetrash.controller");
 
-    @Before("execution(* cf.nirvandil.filetrash.controller.TrashMainController.uploadFile(..))")
+    @Before("execution(* cf.nirvandil.filetrash.controller.TrashMainControllerImpl.uploadFileController(..))")
     public void logStartingUpload()
     {
         logger.warning("Test for before writing file!");
