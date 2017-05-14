@@ -14,8 +14,6 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 @Controller
 public class TrashMainController implements ServletContextAware
@@ -24,7 +22,7 @@ public class TrashMainController implements ServletContextAware
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public ModelAndView indexController()
 	{
-		return new ModelAndView("upload", "dataSiteKey", context.getInitParameter("dataSiteKey"));
+		return new ModelAndView("index", "dataSiteKey", context.getInitParameter("dataSiteKey"));
 	}
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	public ModelAndView uploadFile(
@@ -56,7 +54,8 @@ public class TrashMainController implements ServletContextAware
                 }
             } else
                 {
-                    return new ModelAndView("error", "errorMessage", "Empty file body.");
+                    return new ModelAndView("error", "errorMessage", "Empty file body " +
+                            "or invalid CAPTCHA");
                 }
     }
 	@Override
