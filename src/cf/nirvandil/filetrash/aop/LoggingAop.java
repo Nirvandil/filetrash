@@ -26,6 +26,6 @@ public class LoggingAop
     @Before("execution(* cf.nirvandil.filetrash.controller.TrashMainControllerImpl.uploadFileController(..))")
     public void logStartingUpload()
     {
-        logger.warning("Test for before writing file!");
+        logger.warning("Started uploading file");
     }
 }
