@@ -1,11 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: nirvana
-  Date: 13.05.17
-  Time: 18:42
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Something wrong</title>
@@ -30,8 +25,11 @@
 <body>
 <div>
     <p>
-        Sorry to inform you, but an error occurred and we unable to process you request. An error was:<br> ${errorMessage}
+        Sorry to inform you, but an error occurred and we unable to process you request. An error was:<br>
     </p>
+        <h4>
+            ${errorMessage}
+        </h4>
     <p id="toIndex">
         <a href="${pageContext.request.contextPath}/index.html">Go to main page</a>
     </p>

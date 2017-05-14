@@ -30,33 +30,22 @@ public class TrashMainController implements ServletContextAware
             @RequestParam("g-recaptcha-response") String gRecaptchaResponse,
             @RequestHeader String host)
     {
-        if (validateCaptcha(gRecaptchaResponse) && (!file.isEmpty()))
+        if (!validateCaptcha(gRecaptchaResponse))
+            return new ModelAndView("error", "errorMessage", "Invalid CAPTCHA.");
+        if (file.isEmpty())
+            return new ModelAndView("error", "errorMessage", "Empty file.");
+        try
         {
-            try
-                {
-                    byte[] bytes = file.getBytes();
-                    String fileName = file.getOriginalFilename();
-                    // Get directory to store file
-                    String rootPath = context.getInitParameter("uploadPath");
-                    File dir = new File(rootPath);
-                    // Create the file on server
-                    File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName);
-                    BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-                    stream.write(bytes);
-                    stream.close();
-                    String url = "http://" + host + context.getContextPath() + rootPath + File.separator + fileName;
-                    return new ModelAndView("result", "url", url);
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                    return new ModelAndView("error", "errorMessage", e.getMessage());
-                }
-            } else
-                {
-                    return new ModelAndView("error", "errorMessage", "Empty file body " +
-                            "or invalid CAPTCHA");
-                }
+            String uploadPath = context.getInitParameter("uploadPath");
+            String fileName = file.getOriginalFilename();
+            writeFile(file, uploadPath, fileName);
+            String url = "http://" + host + context.getContextPath() + uploadPath + File.separator + fileName;
+            return new ModelAndView("result", "url", url);
+        }
+        catch (Exception e)
+        {
+            return new ModelAndView("error", "errorMessage", e.getMessage());
+        }
     }
 	@Override
 	public void setServletContext(ServletContext servletContext) {
@@ -95,4 +84,15 @@ public class TrashMainController implements ServletContextAware
         }
         return answer;
 	}
+	private void writeFile(MultipartFile file, String uploadPath, String fileName) throws IOException
+    {
+        byte[] bytes = file.getBytes();
+        // Get directory to store file
+        File dir = new File(uploadPath);
+        // Create the file on server
+        File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName);
+        BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+        stream.write(bytes);
+        stream.close();
+    }
 }
