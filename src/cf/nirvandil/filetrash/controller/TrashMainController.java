@@ -14,6 +14,7 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.logging.Logger;
 
 @Controller
 public class TrashMainController implements ServletContextAware
