@@ -13,6 +13,9 @@
 		<H3>
 			Just put your file and get direct link to it!
 		</H3>
+		<h4>
+			Max upload file size is ${maxUploadSize/(1024*1024)} MegaBytes.
+		</h4>
 	</div>
 	<div style="font-family: verdana,sans-serif; padding: 10px; border-radius: 10px; font-size: 12px; text-align:center;">
 	<form method="POST" action="upload.html" enctype="multipart/form-data">

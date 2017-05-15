@@ -1,5 +1,6 @@
 package cf.nirvandil.filetrash.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletContext;
@@ -20,12 +22,23 @@ import java.net.URLEncoder;
 public class TrashMainControllerImpl implements ServletContextAware, TrashMainController
 {
 	private ServletContext context;
+	private CommonsMultipartResolver multipartResolver;
 
-	@Override
+	public TrashMainControllerImpl() {}
+    @Autowired
+    public TrashMainControllerImpl(CommonsMultipartResolver multipartResolver)
+    {
+        this.multipartResolver = multipartResolver;
+    }
+
+    @Override
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public ModelAndView indexController()
 	{
-		return new ModelAndView("index", "dataSiteKey", context.getInitParameter("dataSiteKey"));
+	    ModelAndView index = new ModelAndView("index", "dataSiteKey", context.getInitParameter("dataSiteKey"));
+	    multipartResolver.getFileUpload().setFileSizeMax(Long.parseLong(context.getInitParameter("maxUploadSize")));
+	    index.getModelMap().addAttribute("maxUploadSize", multipartResolver.getFileUpload().getFileSizeMax());
+		return index;
 	}
 
 	@Override

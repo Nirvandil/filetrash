@@ -9,7 +9,7 @@ Directory, where uploaded files will be saved on server, defined in **web.xml**
   Public key for Google reCAPTCHA must be set in **web.xml** as init-param named
   **dataSiteKey**. Secret key - as init-param **siteKeySecret**
  
- Max file size for uploading defined as property **maxUploadSize** in 
- **filetrash-servlet.xml**. 
+ Max file size for uploading defined as init-param **maxUploadSize** in 
+ **web.xml**. 
  The value is presented *in bytes*.
  
