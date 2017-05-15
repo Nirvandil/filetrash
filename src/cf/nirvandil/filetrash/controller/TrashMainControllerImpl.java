@@ -84,7 +84,10 @@ public class TrashMainControllerImpl implements ServletContextAware, TrashMainCo
             {
                 String line = reader.readLine();
                 if (line.contains("success") && line.contains("true"))
+                {
                     answer = true;
+                    break;
+                }
             }
             reader.close();
         }
