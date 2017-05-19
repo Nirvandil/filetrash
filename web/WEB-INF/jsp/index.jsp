@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,11 +19,11 @@
 		</h4>
 	</div>
 	<div style="font-family: verdana,sans-serif; padding: 10px; border-radius: 10px; font-size: 12px; text-align:center;">
-	<form method="POST" action="upload.html" enctype="multipart/form-data">
+	<form:form modelAttribute="uploadedFile" method="POST" action="upload.html" enctype="multipart/form-data">
 		<input type=file name="file">
         <div class="g-recaptcha" data-sitekey="${dataSiteKey}"></div>
 		<input type=submit value="Upload">
-	</form>
+	</form:form>
 	</div>
 </body>
 </html>

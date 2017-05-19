@@ -1,6 +1,6 @@
 package cf.nirvandil.filetrash.controller;
 
-import org.springframework.web.multipart.MultipartFile;
+import cf.nirvandil.filetrash.model.UploadedFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,5 +11,5 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface TrashMainController {
     ModelAndView indexController();
-    ModelAndView uploadFileController(MultipartFile file, String gRecaptchaResponse, String host, HttpServletRequest request);
+    ModelAndView uploadFileController(UploadedFile file, String gRecaptchaResponse, String host, HttpServletRequest request);
 }

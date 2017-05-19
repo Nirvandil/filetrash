@@ -1,11 +1,9 @@
 package cf.nirvandil.filetrash.controller;
 
+import cf.nirvandil.filetrash.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -38,26 +36,27 @@ public class TrashMainControllerImpl implements ServletContextAware, TrashMainCo
 	    ModelAndView index = new ModelAndView("index", "dataSiteKey", context.getInitParameter("dataSiteKey"));
 	    multipartResolver.getFileUpload().setFileSizeMax(Long.parseLong(context.getInitParameter("maxUploadSize")));
 	    index.getModelMap().addAttribute("maxUploadSize", multipartResolver.getFileUpload().getFileSizeMax());
+	    index.getModelMap().addAttribute("uploadedFile", new UploadedFile());
 		return index;
 	}
 
 	@Override
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	public ModelAndView uploadFileController(
-	        @RequestParam("file") MultipartFile file,
+	        @ModelAttribute("uploadedFile") UploadedFile file,
             @RequestParam("g-recaptcha-response") String gRecaptchaResponse,
             @RequestHeader String host,
             HttpServletRequest request)
     {
         if (!validateCaptcha(gRecaptchaResponse))
             return new ModelAndView("error", "errorMessage", "Invalid CAPTCHA.");
-        if (file.isEmpty())
+        if (file.getFile().isEmpty())
             return new ModelAndView("error", "errorMessage", "Empty file.");
         try
         {
             String uploadPath = context.getInitParameter("uploadPath");
-            String fileName = file.getOriginalFilename();
-            writeFile(file, uploadPath, fileName);
+            String fileName = file.getFile().getOriginalFilename();
+            writeFile(file.getFile(), uploadPath, fileName);
             String url = request.isSecure()? "https://":"http://" + host +
                     context.getContextPath() + uploadPath + File.separator + fileName;
             return new ModelAndView("result", "url", url);
