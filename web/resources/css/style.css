@@ -4,3 +4,11 @@
 #toIndex a:visited {
     color: red;
 }
+
+.mdl-cell {
+    height: 80%;
+}
+
+form > * {
+    margin: 2em;
+}

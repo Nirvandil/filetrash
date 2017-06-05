@@ -10,6 +10,7 @@
     <link href="<c:url value='/resources/css/style.css' />" rel="stylesheet"/>
     <link rel="icon" href="${pageContext.request.contextPath}/resources/img/favicon.png">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.grey-indigo.min.css"/>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
