@@ -5,10 +5,13 @@
     color: red;
 }
 
-.mdl-cell {
-    height: 80%;
+.g-recaptcha {
+    display: inline-block;
+    margin-top: 2em;
+    margin-bottom: 2em;
 }
 
-form > * {
-    margin: 2em;
+.mdl-card > div, form > * {
+    text-align: center;
+    margin: auto;
 }

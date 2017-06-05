@@ -9,7 +9,9 @@
             <p>Max upload file size is ${maxUploadSize/(1024*1024)} MegaBytes. </p>
             <form:form modelAttribute="uploadedFile" method="POST" action="upload.html" enctype="multipart/form-data">
                 <input type=file name="file" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                <div class="g-recaptcha" data-sitekey="${dataSiteKey}"></div>
+                <br>
+                <div id="captcha" class="g-recaptcha" data-sitekey="${dataSiteKey}"></div>
+                <br>
                 <input type=submit value="Upload" class="mdl-button mdl-js-button mdl-button--raised
                 mdl-button--colored">
             </form:form>
