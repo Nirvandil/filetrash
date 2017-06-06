@@ -5,7 +5,7 @@
     <div class="mdl-layout-spacer"></div>
     <!-- Navigation -->
     <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="" style="color:gray">Home</a>
-        <a class="mdl-navigation__link" href="" style="color:gray">About</a>
+        <a class="mdl-navigation__link" href="${pageContext.request.contextPath}/index.html">Home</a>
+        <a class="mdl-navigation__link" href="${pageContext.request.contextPath}/help.html">About</a>
     </nav>
 </div>
