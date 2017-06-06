@@ -8,9 +8,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title><tiles:getAsString name="title"/></title>
     <link href="<c:url value='/resources/css/style.css' />" rel="stylesheet"/>
+    <link href="<c:url value='/resources/css/material.grey-indigo.min.css' />" rel="stylesheet"/>
+    <script src="${pageContext.request.contextPath}/resources/js/material.min.js"></script>
     <link rel="icon" href="${pageContext.request.contextPath}/resources/img/favicon.png">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.grey-indigo.min.css"/>
-    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
