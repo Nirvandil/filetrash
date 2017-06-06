@@ -13,7 +13,7 @@
                 <div id="captcha" class="g-recaptcha" data-sitekey="${dataSiteKey}"></div>
                 <br>
                 <input type=submit value="Upload" class="mdl-button mdl-js-button mdl-button--raised
-                mdl-button--colored">
+                mdl-button--colored mdl-js-ripple-effect">
             </form:form>
         </div>
     </div>
