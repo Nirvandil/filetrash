@@ -5,10 +5,9 @@
         </div>
         <div class="mdl-card__supporting-text">
             <h3>${errorMessage}</h3>
+            <p id="toIndex">
+                <a href="${pageContext.request.contextPath}/index.html">Go to main page</a>
+            </p>
         </div>
-        >
-        <p id="toIndex">
-            <a href="${pageContext.request.contextPath}/index.html">Go to main page</a>
-        </p>
     </div>
 </div>
