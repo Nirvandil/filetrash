@@ -67,8 +67,22 @@ public class TrashMainControllerImpl implements ServletContextAware, TrashMainCo
         }
     }
 
-	@Override
-	public void setServletContext(ServletContext servletContext) {
+    @Override
+    @RequestMapping(value = "/help", method = RequestMethod.GET)
+    public String helpController()
+    {
+        return "help";
+    }
+
+    @Override
+    @RequestMapping(value = "/terms", method = RequestMethod.GET)
+    public String termsController()
+    {
+        return "terms";
+    }
+
+    @Override
+    public void setServletContext(ServletContext servletContext) {
 		this.context = servletContext;
 	}
 

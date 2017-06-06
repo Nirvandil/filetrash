@@ -3,9 +3,8 @@
         Created by Vladimir Sukharev in 2017
     </div>
     <ul class="mdl-mini-footer__link-list">
-        <li><a href="#">Help</a></li>
-        <li><a href="#">Privacy and Terms</a></li>
-        <li><a href="#">User Agreement</a></li>
+        <li><a href="${pageContext.request.contextPath}/help.html">Help</a></li>
+        <li><a href="${pageContext.request.contextPath}/terms.html">Privacy and Terms</a></li>
     </ul>
 </div>
 <div class="mdl-mini-footer__right-section">

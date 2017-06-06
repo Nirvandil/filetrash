@@ -12,4 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 public interface TrashMainController {
     ModelAndView indexController();
     ModelAndView uploadFileController(UploadedFile file, String gRecaptchaResponse, String host, HttpServletRequest request);
+
+    String helpController();
+
+    String termsController();
 }

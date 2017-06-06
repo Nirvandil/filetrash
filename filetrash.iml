@@ -28,6 +28,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="api" level="application" />
     <orderEntry type="library" name="api" level="application" />
+    <orderEntry type="library" name="material" level="application" />
     <orderEntry type="library" name="Maven: org.springframework:spring-web:3.2.18.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:3.2.18.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:3.2.18.RELEASE" level="project" />
@@ -56,6 +57,5 @@
     <orderEntry type="library" name="Maven: org.apache.tiles:tiles-template:3.0.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tiles:tiles-autotag-core-runtime:1.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tiles:tiles-request-jsp:1.0.6" level="project" />
-    <orderEntry type="library" name="material" level="application" />
   </component>
 </module>

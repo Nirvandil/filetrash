@@ -30,4 +30,15 @@
         <put-attribute name="body" value="/WEB-INF/jsp/pages/result.jsp" />
     </definition>
 
+    <!-- Help Page -->
+    <definition name="help" extends="base-definition">
+        <put-attribute name="title" value="Help"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/pages/help.jsp"/>
+    </definition>
+
+    <!-- Terms and privacy Page -->
+    <definition name="terms" extends="base-definition">
+        <put-attribute name="title" value="Terms"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/pages/terms.jsp"/>
+    </definition>
 </tiles-definitions>
