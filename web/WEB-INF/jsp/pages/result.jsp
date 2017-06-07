@@ -10,9 +10,9 @@
                     class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Copy
             </button>
             <br>
-        </div>
-        <div id="toIndex">
-            <a href="${pageContext.request.contextPath}/index.html">Go to main page</a>
+            <div id="toIndex">
+                <a href="${pageContext.request.contextPath}/index.html">Go to main page</a>
+            </div>
         </div>
     </div>
     </div>

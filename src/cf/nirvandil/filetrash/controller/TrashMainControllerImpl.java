@@ -58,7 +58,7 @@ public class TrashMainControllerImpl implements ServletContextAware, TrashMainCo
             String fileName = file.getFile().getOriginalFilename();
             writeFile(file.getFile(), uploadPath, fileName);
             String url = request.isSecure()? "https://":"http://" + host +
-                    context.getContextPath() + uploadPath + File.separator + fileName;
+                    context.getContextPath() + uploadPath + "/" + fileName;
             return new ModelAndView("result", "url", url);
         }
         catch (Exception e)
@@ -130,7 +130,7 @@ public class TrashMainControllerImpl implements ServletContextAware, TrashMainCo
         // Get directory to store file
         File dir = new File(uploadPath);
         // Create the file on server
-        File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName);
+        File serverFile = new File(dir.getAbsolutePath() + "/" + fileName);
         BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
         stream.write(bytes);
         stream.close();

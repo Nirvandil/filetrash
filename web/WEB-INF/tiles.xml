@@ -7,38 +7,44 @@
     <definition name="base-definition"
                 template="/WEB-INF/jsp/tiles/layouts/defaultLayout.jsp">
         <put-attribute name="title" value="" />
+        <put-attribute name="customStyle" value="" />
         <put-attribute name="header" value="/WEB-INF/jsp/tiles/template/defaultHeader.jsp" />
         <put-attribute name="body" value="" />
         <put-attribute name="footer" value="/WEB-INF/jsp/tiles/template/defaultFooter.jsp" />
     </definition>
 
-    <!-- Home Page -->
+    <!-- Index Page -->
     <definition name="index" extends="base-definition">
         <put-attribute name="title" value="Filetrash" />
+        <put-attribute name="customStyle" value="/resources/css/index.css"/>
         <put-attribute name="body" value="/WEB-INF/jsp/pages/index.jsp" />
     </definition>
 
     <!-- Error Page -->
     <definition name="error" extends="base-definition">
         <put-attribute name="title" value="Error :-(" />
+        <put-attribute name="customStyle" value="/resources/css/error.css"/>
         <put-attribute name="body" value="/WEB-INF/jsp/pages/error.jsp" />
     </definition>
 
     <!-- Result Page -->
     <definition name="result" extends="base-definition">
         <put-attribute name="title" value="Your file" />
+        <put-attribute name="customStyle" value="/resources/css/result.css"/>
         <put-attribute name="body" value="/WEB-INF/jsp/pages/result.jsp" />
     </definition>
 
     <!-- Help Page -->
     <definition name="help" extends="base-definition">
         <put-attribute name="title" value="Help"/>
+        <put-attribute name="customStyle" value="/resources/css/help.css"/>
         <put-attribute name="body" value="/WEB-INF/jsp/pages/help.jsp"/>
     </definition>
 
     <!-- Terms and privacy Page -->
     <definition name="terms" extends="base-definition">
         <put-attribute name="title" value="Terms"/>
+        <put-attribute name="customStyle" value="/resources/css/terms.css"/>
         <put-attribute name="body" value="/WEB-INF/jsp/pages/terms.jsp"/>
     </definition>
 </tiles-definitions>
