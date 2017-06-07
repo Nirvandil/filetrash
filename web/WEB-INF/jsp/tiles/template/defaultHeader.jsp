@@ -1,6 +1,7 @@
 <div class="mdl-layout__header-row">
     <!-- Title -->
-    <span class="mdl-layout-title">Simple file exchanger</span>
+    <span class="mdl-layout-title"><a href="${pageContext.request.contextPath}/index.html"
+    style="text-decoration: none; color: #424242" >Simple file exchanger</a></span>
     <!-- Add spacer, to align navigation to the right -->
     <div class="mdl-layout-spacer"></div>
     <!-- Navigation -->
