@@ -5,7 +5,8 @@
             <h2 class="mdl-card__title-text">Put your file and get direct link to it!</h2>
         </div>
         <div class="mdl-card__supporting-text">
-            <p>Max upload file size is ${maxUploadSize/(1024*1024)} MegaBytes. </p>
+            <p><strong>Max upload file size is
+                <span id="maxFileSize"> ${maxUploadSize/(1024*1024)}</span> MegaBytes.</strong> </p>
             <form:form modelAttribute="uploadedFile" method="POST" action="upload.html" enctype="multipart/form-data">
                 <input type=file name="file" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
                 <br>
