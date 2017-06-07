@@ -9,6 +9,8 @@
             Usage is very simple: just select file on
             <a href="${pageContext.request.contextPath}/index.html">main page</a>, enter CAPTCHA,
             click Upload and get direct link to it. You can copy direct link by click on Copy button on result page.
+            <p>If you need some sort of consulting, support or in any other questions, please, don't be shy
+            to <a href="mailto:nirvandil@gmail.com">contact me</a>.</p>
         </div>
     </div>
 </div>
