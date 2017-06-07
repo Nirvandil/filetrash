@@ -5,7 +5,9 @@
         </div>
         <div class="mdl-card__supporting-text">
             This site (or project) - simple and stupid file exchanger, developed by
-            <a href="https://github.com/Nirvandil">Vladimir Sukharev aka Nirvandil</a> for personal usage. <br>
+            <a href="https://github.com/Nirvandil" target="_blank">Vladimir Sukharev aka Nirvandil</a>
+            for personal usage. But you can use it on your own (more info, including user agreement and licenses, on
+            <a href="${pageContext.request.contextPath}/terms.html">terms</a> page). <br>
             Usage is very simple: just select file on
             <a href="${pageContext.request.contextPath}/index.html">main page</a>, enter CAPTCHA,
             click Upload and get direct link to it. You can copy direct link by click on Copy button on result page.
