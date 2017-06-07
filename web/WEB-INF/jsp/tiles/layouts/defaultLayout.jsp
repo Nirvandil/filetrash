@@ -13,7 +13,6 @@
     <link href="<c:url value='/resources/css/material.grey-indigo.min.css' />" rel="stylesheet"/>
     <script src="${pageContext.request.contextPath}/resources/js/material.min.js"></script>
     <link rel="icon" href="${pageContext.request.contextPath}/resources/img/favicon.png">
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
