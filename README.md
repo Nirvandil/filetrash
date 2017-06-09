@@ -13,3 +13,9 @@ Directory, where uploaded files will be saved on server, defined in **web.xml**
  **web.xml**. 
  The value is presented *in bytes*.
  
+### Tips
+If you encounter "Connection refused" instead MaxUploadSizeExceededException
+ on Apache Tomcat when uploaded 
+file size is greater than limitation, it's because default request body in 
+Tomcat is 2Mb. You can fix it by setting parameter maxSwallowSize="-1" for  
+connector (in file conf/server.xml of CATALINA_BASE). 
