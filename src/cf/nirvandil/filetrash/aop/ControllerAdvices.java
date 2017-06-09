@@ -5,9 +5,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 /**
  * Created by Vladimir Sukharev aka Nirvandil on 15.05.17 at 22:41.
  * This program is part of filetrash.
@@ -26,8 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ControllerAdvices
 {
     @ExceptionHandler(MaxUploadSizeExceededException.class)
-    public ModelAndView handleMaxUploadException(MaxUploadSizeExceededException e, HttpServletRequest request,
-                                                 HttpServletResponse response)
+    public ModelAndView handleMaxUploadException()
     {
         return new ModelAndView("error", "errorMessage", "File size exceeded allowed!");
     }
