@@ -34,9 +34,9 @@ public class TrashMainControllerImpl implements ServletContextAware, TrashMainCo
 	public ModelAndView indexController()
 	{
 	    ModelAndView index = new ModelAndView("index", "dataSiteKey", context.getInitParameter("dataSiteKey"));
-	    multipartResolver.getFileUpload().setFileSizeMax(Long.parseLong(context.getInitParameter("maxUploadSize")));
-	    index.getModelMap().addAttribute("maxUploadSize", multipartResolver.getFileUpload().getFileSizeMax());
-	    index.getModelMap().addAttribute("uploadedFile", new UploadedFile());
+        multipartResolver.setMaxUploadSize(Long.parseLong(context.getInitParameter("maxUploadSize")));
+        index.getModelMap().addAttribute("maxUploadSize", multipartResolver.getFileUpload().getSizeMax());
+        index.getModelMap().addAttribute("uploadedFile", new UploadedFile());
 		return index;
 	}
 
