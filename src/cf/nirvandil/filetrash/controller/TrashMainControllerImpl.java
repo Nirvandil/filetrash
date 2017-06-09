@@ -130,7 +130,7 @@ public class TrashMainControllerImpl implements ServletContextAware, TrashMainCo
         // Get directory to store file
         File dir = new File(uploadPath);
         // Create the file on server
-        File serverFile = new File(dir.getAbsolutePath() + "/" + fileName);
+        File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName);
         BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
         stream.write(bytes);
         stream.close();
