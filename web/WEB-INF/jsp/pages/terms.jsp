@@ -23,11 +23,15 @@
                     Files older than two days deletes evert day at 10:00 by Msk.
                 </li>
                 <li>
-                    Of course, it's redistributed and provided "as is", without any warranty.
+                    There is no register (or any kind of list) uploaded materials, registration or personal history,
+                    so you can't obtain direct link more than once after submitting file.
                 </li>
                 <li>
                     Uploader takes all responsibility for uploaded files, including law violation (e.g. by submitting
                     copyrighted or unsafe materials).
+                </li>
+                <li>
+                    Of course, it's redistributed and provided "as is", without any warranty.
                 </li>
             </ol>
         </div>
