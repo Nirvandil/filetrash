@@ -11,6 +11,10 @@
                 <input type=file name="file" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
                 <br>
                 <div id="captcha" class="g-recaptcha" data-sitekey="${dataSiteKey}"></div>
+                <div>
+                    <small>By clicking "Upload" you confirm that your read and accept
+                        <a href="${pageContext.request.contextPath}/terms.html" target="_blank">terms of use</a></small>
+                </div>
                 <br>
                 <input type=submit value="Upload" class="mdl-button mdl-js-button mdl-button--raised
                 mdl-button--colored mdl-js-ripple-effect">
