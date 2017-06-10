@@ -11,3 +11,12 @@
 #maxFileSize {
     color: red;
 }
+
+.mdl-card {
+    border: double;
+    text-align: left;
+}
+
+.mdl-grid {
+    height: 70%;
+}
