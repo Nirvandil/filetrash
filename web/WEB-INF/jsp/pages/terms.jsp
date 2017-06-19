@@ -20,7 +20,7 @@
                     At least for now files with same names can be replaced, so it's not bug, but known feature.
                 </li>
                 <li>
-                    Files older than two days deletes evert day at 10:00 by Msk.
+                    Files older than two days deletes every day at 10:00 by Msk.
                 </li>
                 <li>
                     There is no register (or any kind of list) uploaded materials, registration or personal history,
