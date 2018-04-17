@@ -6,7 +6,13 @@ import cf.nirvandil.filetrash.model.UploadedFile;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +30,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
 
 @Slf4j
 @Controller
@@ -96,8 +103,13 @@ public class TrashMainControllerImpl implements ServletContextAware, TrashMainCo
         String secret = context.getInitParameter("siteKeySecret");
         GoogleReCaptchaCheckRequest captchaCheckRequest = new GoogleReCaptchaCheckRequest(secret, captchaResponse);
         log.info("Sending captcha check request: {}.", captchaCheckRequest);
-        GoogleReCaptchaResponse response = restTemplate.postForEntity(url,
-                captchaCheckRequest, GoogleReCaptchaResponse.class).getBody();
+        MultiValueMap<String, String> map= new LinkedMultiValueMap<>();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        map.add("secret", secret);
+        map.add("response", captchaResponse);
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
+        GoogleReCaptchaResponse response = restTemplate.postForEntity(url, request, GoogleReCaptchaResponse.class).getBody();
         log.info("Response from google captcha check: {}", response);
         return response.isSuccess();
     }

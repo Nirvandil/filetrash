@@ -1,5 +1,6 @@
 package cf.nirvandil.filetrash.aop;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 
@@ -18,14 +19,14 @@ import java.util.logging.Logger;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see http://www.gnu.org/licenses/.
  */
+@Slf4j
 @Aspect
 public class LoggingAop
 {
-    private Logger logger = Logger.getLogger("cf.nirvandil.filetrash.controller");
 
     @Before("execution(* cf.nirvandil.filetrash.controller.TrashMainControllerImpl.uploadFileController(..))")
     public void logStartingUpload()
     {
-        logger.warning("Started uploading file");
+        log.warn("Started uploading file");
     }
 }
