@@ -4,6 +4,7 @@ import cf.nirvandil.filetrash.model.GoogleReCaptchaCheckRequest;
 import cf.nirvandil.filetrash.model.GoogleReCaptchaResponse;
 import cf.nirvandil.filetrash.model.UploadedFile;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,16 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 
+@Slf4j
 @Controller
 public class TrashMainControllerImpl implements ServletContextAware, TrashMainController {
     private ServletContext context;
@@ -72,6 +68,7 @@ public class TrashMainControllerImpl implements ServletContextAware, TrashMainCo
                     context.getContextPath() + uploadPath + "/" + fileName;
             return new ModelAndView("result", "url", url);
         } catch (Exception e) {
+            log.warn("Catches exception when uploading file.", e);
             return new ModelAndView("error", "errorMessage", e.getMessage());
         }
     }
@@ -97,8 +94,11 @@ public class TrashMainControllerImpl implements ServletContextAware, TrashMainCo
     private boolean validateCaptcha(String captchaResponse) {
         String url = context.getInitParameter("checkCaptchaUrl");
         String secret = context.getInitParameter("siteKeySecret");
+        GoogleReCaptchaCheckRequest captchaCheckRequest = new GoogleReCaptchaCheckRequest(secret, captchaResponse);
+        log.info("Sending captcha check request: {}.", captchaCheckRequest);
         GoogleReCaptchaResponse response = restTemplate.postForEntity(url,
-                new GoogleReCaptchaCheckRequest(secret, captchaResponse), GoogleReCaptchaResponse.class).getBody();
+                captchaCheckRequest, GoogleReCaptchaResponse.class).getBody();
+        log.info("Response from google captcha check: {}", response);
         return response.isSuccess();
     }
 
