@@ -1,9 +1,17 @@
 package cf.nirvandil.filetrash.controller;
 
+import cf.nirvandil.filetrash.model.GoogleReCaptchaCheckRequest;
+import cf.nirvandil.filetrash.model.GoogleReCaptchaResponse;
 import cf.nirvandil.filetrash.model.UploadedFile;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -11,122 +19,90 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
 @Controller
-public class TrashMainControllerImpl implements ServletContextAware, TrashMainController
-{
-	private ServletContext context;
-	private CommonsMultipartResolver multipartResolver;
+public class TrashMainControllerImpl implements ServletContextAware, TrashMainController {
+    private ServletContext context;
+    private CommonsMultipartResolver multipartResolver;
+    private final RestTemplate restTemplate;
 
-	public TrashMainControllerImpl() {}
     @Autowired
-    public TrashMainControllerImpl(CommonsMultipartResolver multipartResolver)
-    {
+    public TrashMainControllerImpl(CommonsMultipartResolver multipartResolver, RestTemplate restTemplate) {
         this.multipartResolver = multipartResolver;
+        this.restTemplate = restTemplate;
     }
 
     @Override
-	@RequestMapping(value="/index", method=RequestMethod.GET)
-	public ModelAndView indexController()
-	{
+    @GetMapping(value = "/index")
+    public ModelAndView indexController() {
         ModelAndView index = new ModelAndView("index", "dataSiteKey",
                 context.getInitParameter("dataSiteKey"));
         multipartResolver.setMaxUploadSize(Long.parseLong(context.getInitParameter("maxUploadSize")));
         index.getModelMap().addAttribute("maxUploadSize", multipartResolver.getFileUpload().getSizeMax());
         index.getModelMap().addAttribute("uploadedFile", new UploadedFile());
-		return index;
-	}
+        return index;
+    }
 
-	@Override
-	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public ModelAndView uploadFileController(
-	        @ModelAttribute("uploadedFile") UploadedFile file,
-            @RequestParam("g-recaptcha-response") String gRecaptchaResponse,
+    @Override
+    @PostMapping(value = "/upload")
+    public ModelAndView uploadFileController(
+            @ModelAttribute("uploadedFile") UploadedFile file,
+            @RequestParam("g-recaptcha-response") String captchaResponse,
             @RequestHeader String host,
-            HttpServletRequest request)
-    {
-        if (!validateCaptcha(gRecaptchaResponse))
+            HttpServletRequest request) {
+        if (!validateCaptcha(captchaResponse))
             return new ModelAndView("error", "errorMessage", "Invalid CAPTCHA.");
         if (file.getFile().isEmpty())
             return new ModelAndView("error", "errorMessage", "Empty file.");
-        try
-        {
+        try {
             String uploadPath = context.getInitParameter("uploadPath");
             String fileName = file.getFile().getOriginalFilename();
             writeFile(file.getFile(), uploadPath, fileName);
-            String url = request.isSecure()? "https://":"http://" + host +
+            String url = request.isSecure() ? "https://" : "http://" + host +
                     context.getContextPath() + uploadPath + "/" + fileName;
             return new ModelAndView("result", "url", url);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return new ModelAndView("error", "errorMessage", e.getMessage());
         }
     }
 
     @Override
-    @RequestMapping(value = "/help", method = RequestMethod.GET)
-    public String helpController()
-    {
+    @GetMapping(value = "/help")
+    public String helpController() {
         return "help";
     }
 
     @Override
-    @RequestMapping(value = "/terms", method = RequestMethod.GET)
-    public String termsController()
-    {
+    @GetMapping(value = "/terms")
+    public String termsController() {
         return "terms";
     }
 
     @Override
     public void setServletContext(ServletContext servletContext) {
-		this.context = servletContext;
-	}
+        this.context = servletContext;
+    }
 
-	private boolean validateCaptcha(String gRecaptchaResponse)
-	{
-	    String url = context.getInitParameter("checkCaptchaUrl");
-	    String charset = "UTF-8";
-	    String secret = context.getInitParameter("siteKeySecret");
-	    boolean answer = false;
-        try
-        {
-            String query = String.format("secret=%s&response=%s",
-                    URLEncoder.encode(secret, charset),
-                    URLEncoder.encode(gRecaptchaResponse, charset));
-            URLConnection connection = new URL(url).openConnection();
-            connection.setDoOutput(true); // POST
-            connection.setRequestProperty("Accept-Charset", charset);
-            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
-            try (OutputStream output = connection.getOutputStream()) {
-                output.write(query.getBytes(charset));
-            }
-            //TODO: Handle it as JSON, not simple string
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            while (reader.ready())
-            {
-                String line = reader.readLine();
-                if (line.contains("success") && line.contains("true"))
-                {
-                    answer = true;
-                    break;
-                }
-            }
-            reader.close();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        return answer;
-	}
+    @SneakyThrows
+    private boolean validateCaptcha(String captchaResponse) {
+        String url = context.getInitParameter("checkCaptchaUrl");
+        String secret = context.getInitParameter("siteKeySecret");
+        GoogleReCaptchaResponse response = restTemplate.postForEntity(url,
+                new GoogleReCaptchaCheckRequest(secret, captchaResponse), GoogleReCaptchaResponse.class).getBody();
+        return response.isSuccess();
+    }
 
-    private void writeFile(MultipartFile file, String uploadPath, String fileName) throws IOException
-    {
+    private void writeFile(MultipartFile file, String uploadPath, String fileName) throws IOException {
         byte[] bytes = file.getBytes();
         // Get directory to store file
         File dir = new File(uploadPath);

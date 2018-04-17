@@ -12,15 +12,12 @@
 	<context:component-scan base-package="cf.nirvandil.filetrash" />
     <aop:aspectj-autoproxy proxy-target-class="true"/>
     <mvc:annotation-driven />
-    <bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	</bean>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"/>
 	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
-	<property name="definitions" value="WEB-INF/tiles.xml"/>
+	    <property name="definitions" value="WEB-INF/tiles.xml"/>
 	</bean>
-    <bean id="loggingAop"
-          class="cf.nirvandil.filetrash.aop.LoggingAop"/>
-    <mvc:resources mapping="/resources/**" location="/resources/"
-                   cache-period="31556926"/>
+    <bean id="loggingAop" class="cf.nirvandil.filetrash.aop.LoggingAop"/>
+    <mvc:resources mapping="/resources/**" location="/resources/" cache-period="31556926"/>
 </beans>

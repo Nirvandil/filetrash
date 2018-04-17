@@ -1,5 +1,6 @@
 package cf.nirvandil.filetrash.model;
 
+import lombok.Data;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,18 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see http://www.gnu.org/licenses/.
  */
+@Data
 @Component
-public class UploadedFile
-{
+public class UploadedFile {
     private MultipartFile file;
-
-    public MultipartFile getFile()
-    {
-        return file;
-    }
-
-    public void setFile(MultipartFile file)
-    {
-        this.file = file;
-    }
 }

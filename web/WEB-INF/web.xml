@@ -37,7 +37,7 @@
     <context-param>
         <!--You need to serve this directory by your web-server (as static)-->
     	<param-name>uploadPath</param-name>
-    	<param-value>/media/load/for_tests</param-value>
+    	<param-value>/tmp</param-value>
     </context-param>
     <context-param>
         <!-- Enter your Google reCAPTCHA public key here -->
